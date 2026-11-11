@@ -368,7 +368,10 @@ def test_max_length_is_an_integer(max_length: object) -> None:
 
 def test_a_negative_max_length_is_refused() -> None:
     """No string is shorter than zero characters; zero refuses all but ""."""
-    with pytest.raises(Base58Bech32ValueError, match="^invalid max_length: -1 < 0$"):
+    with pytest.raises(
+        Base58Bech32ValueError,
+        match="^invalid max_length: a negative int of 1 bits < 0$",
+    ):
         b58decode("1", max_length=-1)
     assert b58decode("", max_length=0) == b""
     with pytest.raises(Base58Bech32ValueError, match="^too many base58 characters"):
